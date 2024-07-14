@@ -1,5 +1,4 @@
 import { db } from "@/db";
-
 export default async function Home() {
 
   const item = await db.query.testing.findMany();

@@ -10,19 +10,27 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { Room } from "@/db/schema";
+import { GithubIcon } from "lucide-react";
+import { getRooms } from "@/services/rooms";
 
 function RoomCard({room}: {room: Room}){
   return (
     <Card>
       <CardHeader>
         <CardTitle>{room.name}</CardTitle>
-        <CardDescription>Card Description</CardDescription>
+        <CardDescription>{room.description}</CardDescription>
       </CardHeader>
       <CardContent>
-        <p>Card Content</p>
+        {room.githubRepo && <Link href={room.githubRepo} className="flex items-center gap-2"
+        target="_blank"
+        rel="noreffer noopenner">
+          <GithubIcon/>Github Project
+        </Link>}
       </CardContent>
       <CardFooter>
-        <p>Card Footer</p>
+        <Button>
+          <Link href={`/room/${room.id}`}>Join Room</Link>
+        </Button>
       </CardFooter>
   </Card>
   );
@@ -30,19 +38,21 @@ function RoomCard({room}: {room: Room}){
 
 export default async function Home() {
 
-  const rooms = await db.query.room.findMany();
+  const rooms = await getRooms();
   return (
     <main className="min-h-screen p-8">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between mb-8">
         <h1 className="text-3xl font-bold">Find Rooms to Code</h1>
         <Button asChild>
           <Link href="/create-room">Create Room</Link>
         </Button>
       </div>
-      {rooms.map((room) => { 
-        return <RoomCard key={room.id} room={room} />;
-      }
-    )}
+      <div className="grid grid-cols-3 gap-4">
+        {rooms.map((room) => { 
+          return <RoomCard key={room.id} room={room} />;
+        }
+      )}
+    </div>
     </main>
   );
 }

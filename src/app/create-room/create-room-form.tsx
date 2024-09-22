@@ -20,7 +20,7 @@ import { useRouter } from "next/navigation"
 const formSchema = z.object({
   name: z.string().min(1).max(50),
   description: z.string().min(1).max(2250),
-  language: z.string().min(1).max(50),
+  tags: z.string().min(1).max(50),
   githubRepo: z.string().min(1).max(50),
 })
 
@@ -33,7 +33,7 @@ export function CreateRoomForm() {
         defaultValues: {
             name: "",
             description: "",
-            language: "",
+            tags: "",
             githubRepo: "",
         },
       })
@@ -79,18 +79,18 @@ export function CreateRoomForm() {
                 </FormItem>
               )}
             />
-
+            
             <FormField
               control={form.control}
-              name="language"
+              name="githubRepo"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Programming Language</FormLabel>
+                  <FormLabel>GitHub Repository</FormLabel>
                   <FormControl>
-                    <Input placeholder="Specify the programming language" {...field} />
+                    <Input placeholder="https://github.com/user/repo" {...field} />
                   </FormControl>
                   <FormDescription>
-                    Indicate the programming languages used in this room.
+                    Provide the URL of the GitHub repository associated with this room.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
@@ -99,15 +99,15 @@ export function CreateRoomForm() {
 
             <FormField
               control={form.control}
-              name="githubRepo"
+              name="tags"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>GitHub Repository</FormLabel>
+                  <FormLabel>Tags</FormLabel>
                   <FormControl>
-                    <Input placeholder="Enter the GitHub repository URL" {...field} />
+                    <Input placeholder="typescript, react, nextjs, tailwind" {...field} />
                   </FormControl>
                   <FormDescription>
-                    Provide the URL of the GitHub repository associated with this room.
+                    Add the languages, frameworks and libraries used in this room.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>

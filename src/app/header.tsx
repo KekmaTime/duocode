@@ -17,7 +17,6 @@ import Link from "next/link";
 
 function AccountDropDown(){
   const session = useSession();
-  const isLoggedIn = !!session.data;
 
   return(
     <DropdownMenu>
@@ -31,15 +30,11 @@ function AccountDropDown(){
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        {isLoggedIn ? (
-          <DropdownMenuItem onClick={() => signOut()}>
+        <DropdownMenuItem onClick={() => signOut({
+            callbackUrl: "/",
+          })}>
               <LogOutIcon className="w-4 h-4 mr-2"/>Log out
-            </DropdownMenuItem>
-          ) : (
-            <DropdownMenuItem onClick={() => signIn("google")}>
-              <LogInIcon className="w-4 h-4 mr-2"/>Log in
-            </DropdownMenuItem>
-          )}
+          </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   )
@@ -64,7 +59,10 @@ export function Header() {
           DuoCode
           </Link>
         <div className="flex items-center gap-4">
-          <AccountDropDown />
+          {session.data && <AccountDropDown />}
+          {!session.data && <Button onClick={() => signIn("google")}>
+            <LogInIcon className="w-4 h-4 mr-2"/>Log in
+          </Button>}
           <ModeToggle />
         </div>
       </div>

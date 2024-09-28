@@ -12,9 +12,9 @@ import {
 import { Room } from "@/db/schema";
 import { GithubIcon } from "lucide-react";
 import { getRooms } from "@/services/rooms";
-import { TagsList, splitTags } from "@/components/tags-list";
+import { TagsList} from "@/components/tags-list";
 import { SearchBar } from "./search-bar";
-
+import { splitTags } from "@/lib/utils";
 function RoomCard({room}: {room: Room}){
   return (
     <Card>
@@ -39,7 +39,7 @@ function RoomCard({room}: {room: Room}){
   );
 }
 
-export default async function Home({searchParams}: {searchParams: {search: string}}) {
+export default async function Home({searchParams}: {searchParams: {search?: string}}) {
 
   const rooms = await getRooms(searchParams.search);
   return (

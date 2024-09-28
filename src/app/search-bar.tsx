@@ -15,25 +15,32 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { SearchIcon } from "lucide-react"
-import { useRouter } from "next/navigation"
+import { useRouter, useSearchParams } from "next/navigation"
+import { useEffect } from "react"
 
 const formSchema = z.object({
-  search: z.string().min(1).max(50),
+  search: z.string().max(50),
 })
 
 export function SearchBar() {
     const router = useRouter();
+    const query = useSearchParams();
     
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            search: "",
+            search: query.get("search") || "",
         },
       })
+
+      const search = query.get("search") || "";
+      useEffect(() => {
+        form.setValue("search", search ?? "");
+      }, [search, form])
      
       async function onSubmit(values: z.infer<typeof formSchema>) {
         if (values.search){
-            router.push(`/search?q=${values.search}`)
+            router.push(`/?search=${values.search}`)
         }
         else {
             router.push("/")
@@ -57,6 +64,7 @@ export function SearchBar() {
               )}
             />
             <Button type="submit"><SearchIcon className="mr-2"/> Search</Button>
+            {query.get("search") && <Button variant="link" onClick={() => {form.setValue("search", ""); router.push("/")}}>Clear</Button>}
           </form>
         </Form>
       )

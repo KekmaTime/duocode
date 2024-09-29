@@ -27,7 +27,6 @@ export default function Home() {
           <div className="hidden sm:mb-8 sm:flex sm:justify-center">
           </div>
           <div className="text-center">
-
             <Image
               src={isDarkMode ? "/logo-dark.png" : "/logo.png"}
               alt="DuoCode Logo"

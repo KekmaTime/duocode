@@ -1,36 +1,75 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# DuoCode
 
-## Getting Started
+- DuoCode is the easiest way to find and collaborate with other developers for pair programming sessions.
+- Designed for developers looking to enhance their coding skills through real-time collaboration.
 
-First, run the development server:
+## Usage
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Visit [DuoCode](https://duocode-production.up.railway.app/) to start using the platform.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+1. Browse available coding rooms
+2. Create your own room
+3. Join a room and start pair programming!
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Features
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+1. Room Creation and Management
 
-## Learn More
+- Create custom coding rooms
+- Set room names, descriptions, and tags
+- Link GitHub repositories to rooms
 
-To learn more about Next.js, take a look at the following resources:
+2. Real-time Collaboration
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Video calls for face-to-face interaction
+Screen sharing capabilities
+- Real-time code editing
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+3. User Authentication
 
-## Deploy on Vercel
+- Secure login with Google authentication
+- Personalized user profiles
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+4. Room Discovery
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- Browse available rooms
+- Filter rooms by tags or technologies
+
+5. Dark Mode Support
+Toggle between light and dark themes for comfortable coding in any environment
+
+## Installation for Development
+
+1. Clone the repository
+2. Install dependencies
+3. Set up environment variables
+
+- Create a .env file in the root directory
+- Add necessary environment variables (refer to .env.example)
+
+4. Run the development server
+Open <http://localhost:3000> in your browser
+
+## Technologies Used
+
+- Next.js
+- React
+- TypeScript
+Tailwind CSS
+- NextAuth.js
+- Drizzle ORM
+- PostgreSQL
+- Stream Video SDK
+How to Contribute
+
+1. Fork the repository
+2. Create a new branch: git checkout -b feature/your-feature-name
+3. Make your changes and commit them: git commit -m 'Add some feature'
+4. Push to the branch: git push origin feature/your-feature-name
+Submit a pull request
+
+## Acknowledgements
+
+- Railway for hosting and deployment
+- Stream for video call functionality
+- All contributors who have helped shape DuoCode

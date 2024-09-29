@@ -103,11 +103,10 @@ export function Header() {
       <div className="flex justify-between items-center">
           <Link href="/" className="flex gap-2 items-center text-xl hover:underline">
           <Image 
-            src="/logo.png" 
+            src={isDarkMode ? "/logo-dark.png" : "/logo.png"}
             alt="Duocode Icon"
             width="60"
             height="60"
-            className={isDarkMode ? "filter invert" : ""}
           />
           DuoCode
           </Link>

@@ -5,7 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
 
-export default function Example() {
+export default function Home() {
     const { theme } = useTheme();
     const isDarkMode = theme === "dark";
   return (
@@ -29,11 +29,11 @@ export default function Example() {
           <div className="text-center">
 
             <Image
-              src="/logo.png"
+              src={isDarkMode ? "/logo-dark.png" : "/logo.png"}
               alt="DuoCode Logo"
               width={200}
               height={200}
-              className={isDarkMode ? "inline-block filter invert" : "mx-auto mb-4"}
+              className="mx-auto mb-4"
             />
             <h1 className="text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-6xl">
               Find awesome devs to pair program and code along with 

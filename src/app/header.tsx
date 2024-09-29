@@ -47,7 +47,7 @@ export function Header() {
   const isLoggedIn = !!session.data;
 
   return (
-    <header className="py-2 px-2 mx-auto">
+    <header className="py-2 px-2 mx-auto z-10 relative">
       <div className="flex justify-between items-center">
           <Link href="/" className="flex gap-2 items-center text-xl hover:underline">
           <Image 
@@ -59,9 +59,19 @@ export function Header() {
           />
           DuoCode
           </Link>
-          <Link href="/your-rooms" className="hover:underline">
-            Your Rooms
-          </Link>
+
+          {isLoggedIn && (
+            <nav className="flex gap-8">
+            <Link href="/browse" className="hover:underline">
+                Browse
+            </Link>
+            <Link href="/your-rooms" className="hover:underline">
+                Your Rooms
+            </Link>
+            </nav>
+          )}
+
+
         <div className="flex items-center gap-4">
           {isLoggedIn && <AccountDropDown />}
           {!isLoggedIn && <Button onClick={() => signIn("google")}>

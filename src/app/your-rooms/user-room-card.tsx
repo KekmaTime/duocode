@@ -10,7 +10,7 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { Room } from "@/db/schema";
-import { GithubIcon, TrashIcon } from "lucide-react";
+import { GithubIcon, PencilIcon, TrashIcon } from "lucide-react";
 import { TagsList} from "@/components/tags-list";
 import { splitTags } from "@/lib/utils";
 import {
@@ -29,7 +29,12 @@ import { deleteRoomAction } from "./actions";
 export function UserRoomCard({room}: {room: Room}){
   return (
     <Card>
-      <CardHeader>
+      <CardHeader className="relative">
+        <Button className="absolute top-2 right-2" size="icon">
+          <Link href={`/edit-room/${room.id}`}>
+            <PencilIcon/>
+          </Link>
+        </Button>
         <CardTitle>{room.name}</CardTitle>
         <CardDescription>{room.description}</CardDescription>
       </CardHeader>

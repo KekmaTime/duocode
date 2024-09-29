@@ -44,6 +44,7 @@ export function Header() {
   const session = useSession();
   const { theme } = useTheme();
   const isDarkMode = theme === "dark";
+  const isLoggedIn = !!session.data;
 
   return (
     <header className="py-2 px-2 mx-auto">
@@ -58,9 +59,12 @@ export function Header() {
           />
           DuoCode
           </Link>
+          <Link href="/your-rooms" className="hover:underline">
+            Your Rooms
+          </Link>
         <div className="flex items-center gap-4">
-          {session.data && <AccountDropDown />}
-          {!session.data && <Button onClick={() => signIn("google")}>
+          {isLoggedIn && <AccountDropDown />}
+          {!isLoggedIn && <Button onClick={() => signIn("google")}>
             <LogInIcon className="w-4 h-4 mr-2"/>Log in
           </Button>}
           <ModeToggle />

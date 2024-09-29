@@ -2,13 +2,16 @@ import { getRoom } from "@/services/rooms";
 import { GithubIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
-import { TagsList , splitTags} from "@/components/tags-list";
+import { TagsList } from "@/components/tags-list";
+import { splitTags } from "@/lib/utils";
 import { DuoCodeVideoPlayer } from "./videoplayer";
+import { unstable_noStore } from "next/cache";
 
 export default async function RoomPage(
     props: { params: { roomId: string } }
 ) {
     const roomId = props.params.roomId
+    unstable_noStore();
     const room = await getRoom(roomId);
 
     if(!room) {

@@ -16,6 +16,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { createRoomActions } from "./action"
 import { useRouter } from "next/navigation"
+import { useToast } from "@/hooks/use-toast"
 
 const formSchema = z.object({
   name: z.string().min(1).max(50),
@@ -25,97 +26,100 @@ const formSchema = z.object({
 })
 
 export function CreateRoomForm() {
+  const router = useRouter();
+  const { toast } = useToast();
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: "",
+      description: "",
+      tags: "",
+      githubRepo: "",
+    },
+  })
+  
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    const room = await createRoomActions(values)
+    toast({
+      title: "Room created",
+      description: "Your room has been created",
+    })
+    router.push(`/rooms/${room.id}`)
+  }
 
-    const router = useRouter();
-    
-    const form = useForm<z.infer<typeof formSchema>>({
-        resolver: zodResolver(formSchema),
-        defaultValues: {
-            name: "",
-            description: "",
-            tags: "",
-            githubRepo: "",
-        },
-      })
-     
-      async function onSubmit(values: z.infer<typeof formSchema>) {
-        await createRoomActions(values)
-        router.push("/")
-      }
+  return (
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        <FormField
+          control={form.control}
+          name="name"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Room Name</FormLabel>
+              <FormControl>
+                <Input placeholder="Enter the room name" {...field} />
+              </FormControl>
+              <FormDescription>
+                Provide a unique and descriptive name for your room.
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
-      return (
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-            <FormField
-              control={form.control}
-              name="name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Room Name</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Enter the room name" {...field} />
-                  </FormControl>
-                  <FormDescription>
-                    Provide a unique and descriptive name for your room.
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+        <FormField
+          control={form.control}
+          name="description"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Room Description</FormLabel>
+              <FormControl>
+                <Input placeholder="Enter a brief description" {...field} />
+              </FormControl>
+              <FormDescription>
+                Summarize the purpose and content of this room.
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        
+        <FormField
+          control={form.control}
+          name="githubRepo"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>GitHub Repository</FormLabel>
+              <FormControl>
+                <Input placeholder="https://github.com/user/repo" {...field} />
+              </FormControl>
+              <FormDescription>
+                Provide the URL of the GitHub repository associated with this room.
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
-            <FormField
-              control={form.control}
-              name="description"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Room Description</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Enter a brief description" {...field} />
-                  </FormControl>
-                  <FormDescription>
-                    Summarize the purpose and content of this room.
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            
-            <FormField
-              control={form.control}
-              name="githubRepo"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>GitHub Repository</FormLabel>
-                  <FormControl>
-                    <Input placeholder="https://github.com/user/repo" {...field} />
-                  </FormControl>
-                  <FormDescription>
-                    Provide the URL of the GitHub repository associated with this room.
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+        <FormField
+          control={form.control}
+          name="tags"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Tags</FormLabel>
+              <FormControl>
+                <Input placeholder="typescript, react, nextjs, tailwind" {...field} />
+              </FormControl>
+              <FormDescription>
+                Add the languages, frameworks and libraries used in this room.
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
-            <FormField
-              control={form.control}
-              name="tags"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Tags</FormLabel>
-                  <FormControl>
-                    <Input placeholder="typescript, react, nextjs, tailwind" {...field} />
-                  </FormControl>
-                  <FormDescription>
-                    Add the languages, frameworks and libraries used in this room.
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <Button type="submit">Create Room</Button>
-          </form>
-        </Form>
-      )
-    }
+        <Button type="submit">Create Room</Button>
+      </form>
+    </Form>
+  )
+}

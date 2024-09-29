@@ -3,11 +3,6 @@ import postgres from "postgres"
 import { drizzle } from "drizzle-orm/postgres-js"
 import type { AdapterAccount } from "next-auth/adapters"
 import { sql } from "drizzle-orm";
-
-export const testing = pgTable("testing", {
-    id: text("id").primaryKey(),
-    name: text("name")
-});
    
   const connectionString = "postgres://postgres:postgres@localhost:5432/drizzle"
   const pool = postgres(connectionString, { max: 1 })
